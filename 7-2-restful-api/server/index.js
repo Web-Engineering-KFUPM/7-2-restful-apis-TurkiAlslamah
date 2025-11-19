@@ -12,13 +12,27 @@ const PORT = process.env.PORT || 5174;
 app.use(cors());              
 app.use(express.json());
 
-await connectDB("process.env.MONGO_URL"); // mongodb+srv://s202172030_db_user:AdG9f36cOhWKquha@cluster0.s4lb9au.mongodb.net/labDB
+await connectDB("mongodb+srv://s202172030_db_user:AdG9f36cOhWKquha@cluster0.s4lb9au.mongodb.net/labDB"); // mongodb+srv://s202172030_db_user:AdG9f36cOhWKquha@cluster0.s4lb9au.mongodb.net/labDB
 
 // api/songs (Read all songs)
+        app.post("/api/songs", async (req, res) => {
+          try {
+            const { title = "", artist = "", year } = req.body || {};
+            const created = await Song.create({
+              title: title.trim(),
+              artist: artist.trim(),
+              year
+            });
+            res.status(201).json(created);
+          } catch (err) {
+            res.status(400).json({ message: err.message || "Create failed" });
+          }
+        });
 
 
 
 // api/songs (Insert song)
+
 
 // /api/songs/:id (Update song)
 
