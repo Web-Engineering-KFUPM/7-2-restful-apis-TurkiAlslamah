@@ -12,9 +12,10 @@ const PORT = process.env.PORT || 5174;
 app.use(cors());              
 app.use(express.json());
 
-await connectDB(process.env.MONGO_URL);
+await connectDB("process.env.MONGO_URL"); // mongodb+srv://s202172030_db_user:AdG9f36cOhWKquha@cluster0.s4lb9au.mongodb.net/labDB
 
 // api/songs (Read all songs)
+
 
 
 // api/songs (Insert song)
