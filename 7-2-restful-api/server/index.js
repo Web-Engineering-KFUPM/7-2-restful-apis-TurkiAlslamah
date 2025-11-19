@@ -42,11 +42,24 @@ await connectDB("mongodb+srv://s202172030_db_user:AdG9f36cOhWKquha@cluster0.s4lb
           if (!s) return res.status(404).json({ message: "Song not found" });
           res.json(s);
         });
-        
+
 
 
 
 // /api/songs/:id (Update song)
+app.put("/api/songs/:id", async (req, res) => {
+        try {
+          const updated = await Song.findByIdAndUpdate(
+            req.params.id,
+            req.body || {},
+            { new: true, runValidators: true, context: "query" }
+          );
+          if (!updated) return res.status(404).json({ message: "Song not found" });
+          res.json(updated);
+        } catch (err) {
+          res.status(400).json({ message: err.message || "Update failed" });
+        }
+      });
 
 
 // /api/songs/:id (Delete song)
