@@ -32,6 +32,18 @@ await connectDB("mongodb+srv://s202172030_db_user:AdG9f36cOhWKquha@cluster0.s4lb
 
 
 // api/songs (Insert song)
+      app.get("/api/songs", async (_req, res) => {
+            const rows = await Song.find().sort({ createdAt: -1 });
+            res.json(rows);
+      });
+
+      app.get("/api/songs/:id", async (req, res) => {
+          const s = await Song.findById(req.params.id);
+          if (!s) return res.status(404).json({ message: "Song not found" });
+          res.json(s);
+        });
+        
+
 
 
 // /api/songs/:id (Update song)
